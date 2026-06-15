@@ -1,0 +1,13 @@
+# Azure AI Search SDK (beta — needed for VectorizableTextQuery + integrated vectorization)
+azure-search-documents==11.6.0b12
+
+# Auth + HTTP
+azure-identity>=1.19.0
+requests>=2.32.0
+
+# Config
+python-dotenv>=1.0.1
+
+# Notebook runtime
+jupyter>=1.1.1
+ipykernel>=6.29.5
