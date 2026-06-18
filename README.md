@@ -36,7 +36,7 @@ Three pipeline variants. They share env vars (see `.env.example`) and the venv s
 | Notebook | API track | Image descriptions | When to use |
 |---|---|---|---|
 | `onelake_content_understanding_indexer.ipynb` | **GA** | ❌ none | Production; you only need text + page numbers + tables (Markdown). Images come through as figure regions with OCR'd text inside, no AI-generated description. |
-| `onelake_content_understanding_genai_verbalization.ipynb` | **GA** | ✅ via GenAI Prompt skill | Production with multimodal RAG. Chains the GA `GenAIPromptSkill` over CU's `normalized_images` to verbalize each figure. Two index projections: one per text chunk, one per figure, both in the same index, distinguished by a `kind` field (`text` / `figure`). |
+| `onelake_content_understanding_genai_verbalization.ipynb` | **GA** | ✅ via GenAI Prompt skill | Production with multimodal RAG. Chains the GA `ChatCompletionSkill` over CU's `normalized_images` to verbalize each figure. Two index projections: one per text chunk, one per figure, both in the same index, distinguished by a `kind` field (`text` / `figure`). |
 | `onelake_content_understanding_indexer_preview_verbalization.ipynb` | 🧪 **Preview** (`2026-05-01-preview`) | ✅ inline via CU | Demos and experimentation. Uses CU's built-in `modelName` / `modelDeployment` parameters to inline figure descriptions inside `text_sections[*].content` Markdown — single skill, single API call. Subject to preview SLA. |
 
 ## Verbalization: which path?
@@ -49,7 +49,7 @@ The two GA-vs-preview verbalization notebooks produce **functionally equivalent 
 | Description location | Separate search docs with `kind = "figure"` | Inlined into chunk Markdown |
 | API version | `2026-04-01` GA | `2026-05-01-preview` |
 | Production support | ✅ | ❌ preview SLA |
-| Custom prompt control | ✅ explicit `systemPrompt` / `userPrompt` | ❌ implicit |
+| Custom prompt control | ✅ explicit `systemMessage` / `userMessage` inputs | ❌ implicit |
 | Pricing | CU + AOAI chat tokens (per figure) | CU pays for the chat call internally |
 | Semantic chunking (token-based) | ❌ (fixed-size only on GA) | ✅ |
 
